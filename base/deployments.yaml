@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-master
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: jenkins
+      role: master
+  template:
+    metadata:
+      labels:
+        app: jenkins
+        role: master
+    securityContext:
+      fsGroup: 1000
+    serviceAccountName: jenkins-master
+    spec:
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: web
+            - containerPort: 50000
+              protocol: TCP
+              name: jnlp
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: jenkins-config
+              mountPath: /usr/share/jenkins/ref
+            - name: jenkins-base-plugins
+              mountPath: /jenkins-plugins/base
+            - name: jenkins-base-customization
+              mountPath: /jenkins-customization/base
+          env:
+            - name: JAVA_OPTS
+              value: "-Dhudson.TcpSlaveAgentListener.hostName=jenkins-master"
+          command: ["/bin/bash", "-c"]
+          args: ["rm -rf /usr/share/jenkins/ref/init.groovy.d /var/jenkins_home/init.groovy.d; mkdir -p /usr/share/jenkins/ref/init.groovy.d; cp -r /jenkins-customization/* /usr/share/jenkins/ref/init.groovy.d/; find /jenkins-plugins -name '*.txt' | xargs cat | /usr/local/bin/install-plugins.sh; /sbin/tini -s -- /usr/local/bin/jenkins.sh"]
+          resources:
+            requests:
+              memory: 512m
+              cpu: 100m
+            limits:
+              memory: 1G
+              cpu: '1'
+      volumes:
+        - name: jenkins-home
+          emptyDir: {}
+        - name: jenkins-config
+          emptyDir: {}
+        - name: jenkins-base-plugins
+          configMap:
+            name: jenkins-base-plugins
+        - name: jenkins-base-customization
+          configMap:
+            name: jenkins-base-customization
