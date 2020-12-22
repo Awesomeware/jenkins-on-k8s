@@ -1,1 +1,1 @@
-kubernetes:latest
+kubernetes

@@ -16,10 +16,10 @@ spec:
       labels:
         app: jenkins
         role: master
-    securityContext:
-      fsGroup: 1000
-    serviceAccountName: jenkins-master
     spec:
+      securityContext:
+        fsGroup: 1000
+      serviceAccountName: jenkins-master
       containers:
         - name: jenkins
           image: jenkins/jenkins:latest
@@ -43,7 +43,7 @@ spec:
             - name: JAVA_OPTS
               value: "-Dhudson.TcpSlaveAgentListener.hostName=jenkins-master"
           command: ["/bin/bash", "-c"]
-          args: ["rm -rf /usr/share/jenkins/ref/init.groovy.d /var/jenkins_home/init.groovy.d; mkdir -p /usr/share/jenkins/ref/init.groovy.d; cp -r /jenkins-customization/* /usr/share/jenkins/ref/init.groovy.d/; find /jenkins-plugins -name '*.txt' | xargs cat | /usr/local/bin/install-plugins.sh; /sbin/tini -s -- /usr/local/bin/jenkins.sh"]
+          args: ["rm -rf /usr/share/jenkins/ref/init.groovy.d /var/jenkins_home/init.groovy.d; mkdir -p /usr/share/jenkins/ref/init.groovy.d; find /jenkins-customization -type l -name '*.groovy' -exec sh -c 'ln -s {} /usr/share/jenkins/ref/init.groovy.d/$(basename $(dirname {}))-$(basename {})' \\;; find /jenkins-plugins -type f -name '*.txt' -exec cat {} \\; -exec echo '' \\; | sort | uniq | xargs /bin/jenkins-plugin-cli --plugins; /sbin/tini -s -- /usr/local/bin/jenkins.sh"]
           resources:
             requests:
               memory: 512m

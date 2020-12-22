@@ -13,7 +13,7 @@ if (System.getenv("DONT_INSTALL_LOCAL_CLOUD") == null) {
     localCloud.setDirectConnection(true)
 
     if (existingCloud == null) {
-        Jenkins.instance.clouds.add(kubernetes)
+        Jenkins.instance.clouds.add(localCloud)
     } else {
         Jenkins.instance.clouds.replace(existingCloud, localCloud)
     }
