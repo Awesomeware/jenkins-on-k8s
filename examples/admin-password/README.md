@@ -1,5 +1,5 @@
 # Basic Jenkins with an admin account
-This example deploys a very basic Jenkins instance, extending our [base configuration](../../base/README.md) to set an admin account. Additionally, we configure the authorization so if you are not logged in, you have a read-only view of our Jenkins instance.
+This example deploys a very basic Jenkins instance, extending our [base configuration](../../base) to set an admin account. Additionally, we configure the authorization so if you are not logged in, you have a read-only view of our Jenkins instance.
 
 To deploy and use this example, perform the following steps:
  * Create a new namespace for the example `kubectl create ns jenkins-on-k8s-admin-example`
