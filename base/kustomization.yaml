@@ -1,3 +1,5 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 resources:
   - deployments.yaml
   - role-bindings.yaml
@@ -11,5 +13,4 @@ configMapGenerator:
   - name: jenkins-base-customization
     files:
       - configuration/groovy/set-best-practice-settings.groovy
-      - configuration/groovy/set-install-state.groovy
       - configuration/groovy/set-local-kubernetes-cloud.groovy

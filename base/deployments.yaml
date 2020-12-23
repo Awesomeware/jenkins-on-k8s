@@ -41,7 +41,7 @@ spec:
               mountPath: /jenkins-customization/base
           env:
             - name: JAVA_OPTS
-              value: "-Dhudson.TcpSlaveAgentListener.hostName=jenkins-master"
+              value: "-Dhudson.TcpSlaveAgentListener.hostName=jenkins-master -Djenkins.install.runSetupWizard=false"
           command: ["/bin/bash", "-c"]
           args: ["rm -rf /usr/share/jenkins/ref/init.groovy.d /var/jenkins_home/init.groovy.d; mkdir -p /usr/share/jenkins/ref/init.groovy.d; find /jenkins-customization -type l -name '*.groovy' -exec sh -c 'ln -s {} /usr/share/jenkins/ref/init.groovy.d/$(basename $(dirname {}))-$(basename {})' \\;; find /jenkins-plugins -type f -name '*.txt' -exec cat {} \\; -exec echo '' \\; | sort | uniq | xargs /bin/jenkins-plugin-cli --plugins; /sbin/tini -s -- /usr/local/bin/jenkins.sh"]
           resources:

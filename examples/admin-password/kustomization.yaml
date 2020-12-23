@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+  - ../../base
+patchesStrategicMerge:
+  - deployments.yaml
+configMapGenerator:
+  - name: jenkins-example-customization
+    files:
+      - configuration/groovy/set-admin-account.groovy
+      - configuration/groovy/set-authorization-strategy.groovy
+secretGenerator:
+  - name: jenkins-admin-password
+    env: jenkins-admin-password.env

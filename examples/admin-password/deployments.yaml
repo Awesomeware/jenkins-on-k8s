@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-master
+spec:
+  template:
+    spec:
+      containers:
+        - name: jenkins
+          envFrom:
+            - secretRef:
+                name: jenkins-admin-password
+          volumeMounts:
+            - mountPath: /jenkins-customization/example
+              name: jenkins-example-customization
+      volumes:
+        - name: jenkins-example-customization
+          configMap:
+            name: jenkins-example-customization
