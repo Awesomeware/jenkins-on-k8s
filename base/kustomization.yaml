@@ -5,11 +5,11 @@ resources:
   - service-accounts.yaml
   - services.yaml
 configMapGenerator:
-- name: jenkins-base-plugins
-  files:
-  - configuration/plugins.txt
-- name: jenkins-base-customization
-  files:
-  - configuration/groovy/set-best-practice-settings.groovy
-  - configuration/groovy/set-install-state.groovy
-  - configuration/groovy/set-local-kubernetes-cloud.groovy
+  - name: jenkins-base-plugins
+    files:
+      - configuration/plugins.txt
+  - name: jenkins-base-customization
+    files:
+      - configuration/groovy/set-best-practice-settings.groovy
+      - configuration/groovy/set-install-state.groovy
+      - configuration/groovy/set-local-kubernetes-cloud.groovy
