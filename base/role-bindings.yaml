@@ -9,4 +9,29 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: jenkins-master
-    namespace: default
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-master-read-secrets
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: read-secrets
+subjects:
+  - kind: ServiceAccount
+    name: jenkins-master
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-master-read-config-maps
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: read-config-maps
+subjects:
+  - kind: ServiceAccount
+    name: jenkins-master
