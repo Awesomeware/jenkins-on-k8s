@@ -4,6 +4,8 @@ bases:
   - ../../base
 patchesStrategicMerge:
   - deployments.yaml
+resources:
+  - secrets.yaml
 configMapGenerator:
   - name: jenkins-example-customization
     files:
@@ -12,3 +14,4 @@ configMapGenerator:
 secretGenerator:
   - name: jenkins-admin-password
     env: jenkins-admin-password.env
+namespace: jenkins-on-k8s-admin-example
