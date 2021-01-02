@@ -22,7 +22,7 @@ spec:
       serviceAccountName: jenkins-master
       containers:
         - name: jenkins
-          image: jenkins/jenkins:latest
+          image: jenkins/jenkins:2.273
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -51,6 +51,27 @@ spec:
             limits:
               memory: 1G
               cpu: '1'
+          startupProbe:
+            httpGet:
+              path: '/login'
+              port: web
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 12
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: '/login'
+              port: web
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: '/login'
+              port: web
+            periodSeconds: 10
+            timeoutSeconds: 5
       volumes:
         - name: jenkins-home
           emptyDir: {}

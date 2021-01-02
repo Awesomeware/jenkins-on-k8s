@@ -6,14 +6,19 @@ patchesStrategicMerge:
   - deployments.yaml
 resources:
   - secrets.yaml
+components:
+  - ../../components/github-organization
 configMapGenerator:
   - name: jenkins-example-customization
     files:
       - configuration/groovy/set-admin-account.groovy
       - configuration/groovy/set-authorization-strategy.groovy
       - configuration/groovy/set-url.groovy
+  - name: github-organization-name
+    envs:
+     - github-organization-name.env
 secretGenerator:
   - name: jenkins-admin-password
     envs:
       - jenkins-admin-password.env
-namespace: jenkins-on-k8s-admin-example
+namespace: jenkins-on-k8s-github-example
