@@ -4,7 +4,7 @@ This example deploys a very basic Jenkins instance, extending our [base configur
 To deploy and use this example, perform the following steps:
  * Create a new namespace for the example `kubectl create ns jenkins-on-k8s-admin-example`
  * Set an admin password file `echo JENKINS_ADMIN_PASSWORD=examplePassword > jenkins-admin-password.env`
- * Deploy Jenkins `kubectl apply -k .`
+ * Deploy Jenkins `kustomize build | kubectl apply -f -`
  * Wait for the deployment to complete `kubectl rollout status deployment/jenkins-master -n jenkins-on-k8s-admin-example`
  * Port forward to Jenkins to see the UI `kubectl port-forward deployment/jenkins-master -n jenkins-on-k8s-admin-example 8080`
  * Visit the UI on [https://127.0.0.1:8080](https://127.0.0.1:8080) and confirm you can see Jenkins
