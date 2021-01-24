@@ -12,6 +12,7 @@ def orgCred = System.getenv("GITHUB_ORGANIZATION_CREDENTIAL_ID")
 if (orgCred == null) {
     orgCred = 'github-organization-access'
 }
+println "Setting up a GitHub organization named ${orgName} with an auth secret named ${orgCred}"
 if (orgName != null) {
     def folder = Jenkins.instance.items.isEmpty() ? Jenkins.instance.createProject(OrganizationFolder, orgName) : Jenkins.instance.items[0]
     def navigator = new GitHubSCMNavigator(orgName)
