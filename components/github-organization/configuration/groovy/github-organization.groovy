@@ -25,6 +25,7 @@ if (orgName != null) {
     new ForkPullRequestDiscoveryTrait(1, new ForkPullRequestDiscoveryTrait.TrustPermission()),  // Allow people in the organisation to update Jenkinsfiles in forks
     ]
     folder.navigators.replace(navigator)
+    folder.save()
     Jenkins.instance.save()
     navigator.afterSave(folder)
 }
