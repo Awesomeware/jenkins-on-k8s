@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-master
+spec:
+  template:
+    spec:
+      containers:
+        - name: jenkins
+          volumeMounts:
+            - name: jenkins-github-oauth-plugins
+              mountPath: /jenkins-plugins/github-oauth
+            - mountPath: /jenkins-customization/github-oauth
+              name: jenkins-github-oauth-customization
+      volumes:
+        - name: jenkins-github-oauth-plugins
+          configMap:
+            name: jenkins-github-oauth-plugins
+        - name: jenkins-github-oauth-customization
+          configMap:
+            name: jenkins-github-oauth-customization

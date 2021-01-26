@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patchesStrategicMerge:
+  - deployments.yaml
+configMapGenerator:
+  - name: jenkins-github-oauth-plugins
+    files:
+      - configuration/plugins.txt
+  - name: jenkins-github-oauth-customization
+    files:
+      - configuration/groovy/github-oauth.groovy
