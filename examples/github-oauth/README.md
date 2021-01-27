@@ -15,10 +15,10 @@ Prior to the below setup, create a new namespace for the example `kubectl create
 ## Set up GitHub OAuth
  * Create a [GitHub app](https://plugins.jenkins.io/github-oauth/), see the steps under "Setup"
    and note down the `clientId` and `clientSecret`.
- * Set the clientID to use `echo JENKINS_GITHUB_CLIENT_ID=<clientId> >> github-oauth.env`
- * Set the clientSecret to use `echo JENKINS_GITHUB_CLIENT_SECRET=<clientSecret> >> github-oauth.env`
- * Set a list of GitHub usernames to make admins, separated by comma `echo JENKINS_GITHUB_ADMINS=person1,person2,person3 >> github-oauth.env`
- * Set a list of Organization names to allow, separated by comma `echo JENKINS_GITHUB_ORG_NAMES=yourOrg >> github-oauth.env`
+ * Set the clientID to use `echo GITHUB_CLIENT_ID=<clientId> >> github-oauth.env`
+ * Set the clientSecret to use `echo GITHUB_CLIENT_SECRET=<clientSecret> >> github-oauth.env`
+ * Set a list of GitHub usernames to make admins, separated by comma `echo GITHUB_ADMINS=person1,person2,person3 >> github-oauth.env`
+ * Set a list of Organization names to allow, separated by comma `echo GITHUB_ORG_NAMES=yourOrg >> github-oauth.env`
 
 ## Set up Jenkins ingress & URL
  * Deploy an ingress into the example namespace to reach your Jenkins instance, see e.g., `ingress.yaml.example`
