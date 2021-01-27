@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+  - ../../base
+patchesStrategicMerge:
+  - deployments.yaml
+resources:
+  - secrets.yaml
+components:
+  - ../../components/github-organization
+  - ../../components/github-oauth
+configMapGenerator:
+  - name: jenkins-example-customization
+    files:
+      - configuration/groovy/set-url.groovy
+  - name: github-organization-env
+    envs:
+     - github-organization.env
+  - name: github-oauth-env
+    envs:
+      - github-oauth.env
+namespace: jenkins-example

@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: jenkins-example
+spec:
+  rules:
+    - host: my-super-cool-jenkins.awesomeware.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: jenkins-master
+              servicePort: 8080

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-master
+spec:
+  template:
+    spec:
+      containers:
+        - name: jenkins
+          envFrom:
+            - configMapRef:
+                name: github-organization-env
+            - configMapRef:
+                name: github-oauth-env
+          volumeMounts:
+            - mountPath: /jenkins-customization/example
+              name: jenkins-example-customization
+      volumes:
+        - name: jenkins-example-customization
+          configMap:
+            name: jenkins-example-customization
