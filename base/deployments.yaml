@@ -22,7 +22,7 @@ spec:
       serviceAccountName: jenkins-master
       containers:
         - name: jenkins
-          image: jenkins/jenkins:2.273
+          image: jenkins/jenkins:2.277
           ports:
             - containerPort: 8080
               protocol: TCP
