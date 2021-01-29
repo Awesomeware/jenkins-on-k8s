@@ -28,4 +28,5 @@ if (orgName != null) {
     folder.save()
     Jenkins.instance.save()
     navigator.afterSave(folder)
+    folder.scheduleBuild()
 }
